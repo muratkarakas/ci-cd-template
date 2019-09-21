@@ -16,7 +16,7 @@ pipeline {
                 docker { image 'docker:dind' }
         }
         steps {
-           sh 'ls -lrt target'
+           sh 'ls -lrt'
         }
     }
     stage('Test') {
