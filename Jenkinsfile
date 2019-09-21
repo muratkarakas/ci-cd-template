@@ -31,7 +31,8 @@ pipeline {
                 docker { image 'docker:dind' }
         }
         steps {
-           sh 'docker  ps'
+           sh './mvnw  jib:dockerBuild -DskipTests
+'
         }
     }
   }
