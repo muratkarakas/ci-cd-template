@@ -28,7 +28,7 @@ pipeline {
     }
     stage('Docker Image Build') {
         agent {
-                docker { image 'dind' }
+                docker { image 'docker:dind' }
         }
         steps {
            sh 'docker  ps'
