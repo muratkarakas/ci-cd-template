@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Docker Image Build') {
             steps {
-                sh './mvnw -B -DskipTests clean package'
+                sh './mvnw jib:dockerBuild -DskipTests'
             }
         }
     }
