@@ -1,15 +1,15 @@
 pipeline {
-  agent {
-    docker {
-      image 'openjdk:8-jdk-alpine'
-    }
 
-  }
+  agent none
+
   stages {
     stage('Build') {
-      steps {
-        sh './mvnw -DskipTests clean package'
-      }
+        agent {
+                docker { image 'openjdk:8-jdk-alpine' }
+        }
+        steps {
+           sh './mvnw -DskipTests clean package'
+        }
     }
     stage('Test') {
       post {
@@ -24,9 +24,12 @@ pipeline {
       }
     }
     stage('Docker Image Build') {
-      steps {
-        sh './mvnw jib:dockerBuild -DskipTests'
-      }
+        agent {
+                docker { image 'dind' }
+        }
+        steps {
+           sh 'docker  ps'
+        }
     }
   }
 }
