@@ -6,12 +6,14 @@ pipeline {
 
 
     stage('Build with Maven') {
-		container('maven'){
-			dir (".") {
-				
-				sh ("./mvnw -DskipTests clean package")
-			}
-		}
+        steps {
+            container('maven'){
+                dir (".") {
+                    
+                    sh ("./mvnw -DskipTests clean package")
+                }
+            }
+        }
 	}
 
 
