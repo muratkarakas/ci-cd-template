@@ -11,6 +11,14 @@ pipeline {
            sh './mvnw -DskipTests clean package'
         }
     }
+    stage('Docker Image Build') {
+        agent {
+                docker { image 'docker:dind' }
+        }
+        steps {
+           sh 'ls -lrt target'
+        }
+    }
     stage('Test') {
        agent {
                 docker { image 'openjdk:8-jdk-alpine' }
@@ -26,14 +34,6 @@ pipeline {
         sh './mvnw test'
       }
     }
-    stage('Docker Image Build') {
-        agent {
-                docker { image 'docker:dind' }
-        }
-        steps {
-           sh './mvnw  jib:dockerBuild -DskipTests
-'
-        }
-    }
+
   }
 }
