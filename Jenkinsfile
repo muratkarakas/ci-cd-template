@@ -1,18 +1,18 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine'
+            image 'alpine'
         }
     }
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh './mvnw -DskipTests clean package'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh './mvnw test'
             }
             post {
                 always {
@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Docker Image Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh './mvnw -B -DskipTests clean package'
             }
         }
     }
