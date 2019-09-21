@@ -12,6 +12,9 @@ pipeline {
         }
     }
     stage('Test') {
+       agent {
+                docker { image 'openjdk:8-jdk-alpine' }
+       }
       post {
         always {
           junit 'target/surefire-reports/*.xml'
