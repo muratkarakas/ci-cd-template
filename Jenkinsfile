@@ -3,6 +3,18 @@ pipeline {
   agent none
 
   stages {
+
+
+    stage('Build with Maven') {
+		container('maven'){
+			dir (".") {
+				
+				sh ("./mvnw -DskipTests clean package")
+			}
+		}
+	}
+
+
     stage('Build') {
         agent {
                 docker { image 'openjdk:8-jdk-alpine' }
