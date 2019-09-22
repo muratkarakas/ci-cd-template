@@ -37,6 +37,30 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+				<images>
+					<image>
+					<name>ci-cd-template:latest</name>
+					<alias>dockerfile</alias>
+					<build>
+						<!-- filter>@</filter-->
+						<contextDir>${project.basedir}/src/main/docker</contextDir>
+						<assembly>
+							<descriptorRef>artifact</descriptorRef>
+						</assembly>
+					</build>
+					<run>
+						<ports>
+						    <port>8080:8080</port>
+						</ports>
+					</run>
+					</image>
+				</images>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
