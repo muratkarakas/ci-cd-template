@@ -17,7 +17,7 @@ pipeline {
                         clusterName: 'docker-desktop',
                         namespace: 'kube-system'
                         ]) {
-          sh 'kubectl get pods'
+          sh 'get pods'
         }
       }
     }
