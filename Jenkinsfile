@@ -14,12 +14,12 @@ pipeline {
     stage('Docker Image Build') {
         agent {
             docker {
-                image 'maven:latest'
+                image 'openjdk:8-jdk-alpine'
                 args ' -v /var/run/docker.sock:/var/run/docker.sock' //here we expose docker socket to container. Now we can build docker images in the same way as on host machine where docker daemon is installed
             }
         }
         steps {
-            sh 'mvn -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock docker:build' //example of how to build docker image with pom.xml and fabric8 plugin
+            sh './mvnw -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock package docker:build' //example of how to build docker image with pom.xml and fabric8 plugin
         }
     }
     stage('Test') {
