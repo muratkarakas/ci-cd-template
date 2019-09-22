@@ -10,7 +10,6 @@ pipeline {
                 docker { 
                          image 'smesch/kubectl' 
                          args '-t'
-                         run '--entrypoint  cat'
                         }
     }
      steps {
