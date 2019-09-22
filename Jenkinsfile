@@ -7,7 +7,7 @@ pipeline {
 
   stage('List pods') {
     agent {
-                docker { image 'bitnami/kubectl' }
+                docker { image 'smesch/kubectl' }
     }
      steps {
         withKubeConfig([credentialsId: 'local-k8s',
@@ -17,7 +17,7 @@ pipeline {
                         clusterName: 'docker-desktop',
                         namespace: 'kube-system'
                         ]) {
-          sh 'get pods'
+          sh 'kubectl get pods'
         }
       }
     }
