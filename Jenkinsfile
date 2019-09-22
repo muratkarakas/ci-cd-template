@@ -7,7 +7,10 @@ pipeline {
 
   stage('List pods') {
     agent {
-                docker { image 'smesch/kubectl' }
+                docker { 
+                         image 'smesch/kubectl' 
+                         args '-t cat'
+                        }
     }
      steps {
         withKubeConfig([credentialsId: 'local-k8s',
