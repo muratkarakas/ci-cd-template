@@ -9,7 +9,7 @@ pipeline {
     agent {
                 docker { 
                          image 'smesch/kubectl' 
-                         args '-t cat'
+                         withRun '-t cat '
                         }
     }
      steps {
