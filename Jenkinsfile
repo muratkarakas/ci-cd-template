@@ -20,7 +20,7 @@ pipeline {
                         clusterName: 'docker-desktop',
                         namespace: 'kube-system'
                         ]) {
-          sh 'kubectl get pods'
+          sh 'kubectl get pods --insecure-skip-tls-verify=true'
         }
       }
     }
