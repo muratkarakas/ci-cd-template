@@ -8,8 +8,9 @@ pipeline {
   stage('List pods') {
     agent {
                 docker { 
-                         image 'bitnami/kubectl' 
-                         args '-t --entrypoint cat'
+                         image 'smesch/kubectl' 
+                         args '-t'
+                         run '--entrypoint  cat'
                         }
     }
      steps {
