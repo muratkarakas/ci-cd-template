@@ -15,7 +15,7 @@ public class CiCdTemplateApplication {
 	}
 
 	@GetMapping(value="/ping")
-	public String getMethodName( ) {
+	public String ping( ) {
 		return  "pong";
 	}
 	
