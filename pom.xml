@@ -56,7 +56,7 @@
 				<configuration>
 				<images>
 					<image>
-					<name>ci-cd-template:latest</name>
+					<name>mkarakas/ci-cd-template:latest</name>
 					<build>
 						<!-- filter>@</filter-->
 						<contextDir>${project.basedir}/src/main/docker</contextDir>
