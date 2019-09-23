@@ -29,11 +29,12 @@ pipeline {
         sh './mvnw test'
       }
     }
-    stage('Docker Image Build-local') {
+    stage('Docker Image Build') {
         steps {
             sh './mvnw -Ddocker.skip=false package docker:build'
         }
     }
+    /*
     stage('Docker Image Build') {
         agent {
             docker {
@@ -63,6 +64,7 @@ pipeline {
         }
       }
     }
+    */
 
   }
 }
