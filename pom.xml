@@ -38,13 +38,25 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<configuration>
+					<to>
+						<image>mkarakas/ci-cd-template</image>
+					</to>
+					<from>
+						<image>openjdk:8-jdk-alpine</image>
+					</from>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>io.fabric8</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
 				<images>
 					<image>
 					<name>ci-cd-template:latest</name>
-					<alias>dockerfile</alias>
 					<build>
 						<!-- filter>@</filter-->
 						<contextDir>${project.basedir}/src/main/docker</contextDir>

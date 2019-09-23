@@ -15,17 +15,7 @@ pipeline {
            sh './mvnw -DskipTests clean package'
         }
     }
-    stage('Docker Image Build') {
-        agent {
-            docker {
-                image 'openjdk:8-jdk-alpine'
-                args ' -v /var/run/docker.sock:/var/run/docker.sock' 
-            }
-        }
-        steps {
-            sh './mvnw -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock package docker:build'
-        }
-    }
+
     stage('Test') {
        agent {
                 docker { image 'openjdk:8-jdk-alpine' }
@@ -41,14 +31,24 @@ pipeline {
         sh './mvnw test'
       }
     }
-
-    stage('Deploy pods') {
-    agent {
-                docker { 
-                         image 'smesch/kubectl' 
-                         args '-t'
-                        }
+    stage('Docker Image Build') {
+        agent {
+            docker {
+                image 'openjdk:8-jdk-alpine'
+                args ' -v /var/run/docker.sock:/var/run/docker.sock' 
+            }
+        }
+        steps {
+            sh './mvnw -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock package docker:build'
+        }
     }
+    stage('Deploy pods') {
+        agent {
+                    docker { 
+                            image 'smesch/kubectl' 
+                            args '-t'
+                            }
+        }
      steps {
         withKubeConfig([credentialsId: 'local-k8s',
                         serverUrl: 'https://kubernetes.docker.internal:6443',
