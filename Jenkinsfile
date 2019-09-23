@@ -29,11 +29,12 @@ pipeline {
         sh './mvnw test'
       }
     }
-    stage('Docker Image Build') {
+    stage('Docker Image Build  & Push') {
         steps {
             sh './mvnw -Ddocker.skip=false package docker:build'
             withCredentials([string(credentialsId: 'dockerhub_password', variable: 'password')]) {
                  sh 'docker login -u mkarakas -p   ${password}'
+                 sh 'docker push mkarakas/ci-cd-template'
             }
            
         }
