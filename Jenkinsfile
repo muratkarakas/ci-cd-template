@@ -16,20 +16,22 @@ pipeline {
         }
     }
 
-    stage('Test') {
-       agent {
-                docker { image 'openjdk:8-jdk-alpine' }
-       }
-      post {
-        always {
-          junit 'target/surefire-reports/*.xml'
-
-        }
-
-      }
+    stage('Docker Image Build  -  local') {
+      
       steps {
-        sh './mvnw test'
+            sh './mvnw -Ddocker.skip=false package docker:build'
       }
+    }
+    stage('Docker Image Build') {
+        agent {
+            docker {
+                image 'openjdk:8-jdk-alpine'
+                args ' -v /var/run/docker.sock:/var/run/docker.sock' 
+            }
+        }
+        steps {
+            sh './mvnw -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock package docker:build'
+        }
     }
     stage('Docker Image Build') {
         agent {
