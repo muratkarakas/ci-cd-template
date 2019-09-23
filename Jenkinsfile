@@ -5,24 +5,7 @@ pipeline {
   stages {
 
 
-  stage('List pods') {
-    agent {
-                docker { 
-                         image 'smesch/kubectl' 
-                         args '-t'
-                        }
-    }
-     steps {
-        withKubeConfig([credentialsId: 'local-k8s',
-                        serverUrl: 'https://kubernetes.docker.internal:6443',
-                        contextName: 'docker-desktop',
-                        clusterName: 'docker-desktop',
-                        namespace: 'kube-system'
-                        ]) {
-          sh 'kubectl get pods --insecure-skip-tls-verify=true'
-        }
-      }
-    }
+
 
     stage('Build') {
         agent {
@@ -56,6 +39,25 @@ pipeline {
       }
       steps {
         sh './mvnw test'
+      }
+    }
+
+    stage('Deploy pods') {
+    agent {
+                docker { 
+                         image 'smesch/kubectl' 
+                         args '-t'
+                        }
+    }
+     steps {
+        withKubeConfig([credentialsId: 'local-k8s',
+                        serverUrl: 'https://kubernetes.docker.internal:6443',
+                        contextName: 'docker-desktop',
+                        clusterName: 'docker-desktop',
+                        namespace: 'kube-system'
+                        ]) {
+          sh 'kubectl get pods --insecure-skip-tls-verify=true'
+        }
       }
     }
 
