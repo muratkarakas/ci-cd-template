@@ -32,6 +32,10 @@ pipeline {
     stage('Docker Image Build') {
         steps {
             sh './mvnw -Ddocker.skip=false package docker:build'
+            withCredentials([string(credentialsId: 'dockerhub_password', variable: 'password')]) {
+                 sh 'docker login -u mkarakas -p ' + ${password}
+            }
+           
         }
     }
     /*
