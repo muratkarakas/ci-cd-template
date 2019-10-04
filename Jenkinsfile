@@ -19,7 +19,7 @@ pipeline {
     stage('Manage With Ansible'){
        steps {
 
-
+         sh 'export ANSIBLE_HOST_KEY_CHECKING=False'
          ansiblePlaybook(installation:'ansible', credentialsId: 'server_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
        }
     }
