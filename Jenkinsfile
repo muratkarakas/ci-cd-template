@@ -18,7 +18,7 @@ pipeline {
     stage('SonarQube analysis') {
         steps {
             withSonarQubeEnv(installationName: 'EterationSonar') {
-              sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+              sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.1.1688:sonar'
             }
         }
       }
