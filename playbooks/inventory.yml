@@ -1,0 +1,2 @@
+[docker-servers]
+3.15.157.184 ansible_user=ubuntu  ansible_python_interpreter=/usr/bin/python3

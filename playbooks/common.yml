@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+  - name: upgrade OS
+    become: true
+    apt:
+       upgrade: full
+       update_cache: yes
+       cache_valid_time: 86400
+       force_apt_get: True

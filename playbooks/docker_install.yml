@@ -1,0 +1,34 @@
+---
+
+- import_playbook: common.yml
+
+
+- hosts: all
+  tasks:
+  - name: Install docker
+    become: true
+    apt:
+       name: docker.io
+  - name: Ensure group "docker" exists
+    group:
+      name: docker
+      state: present    
+
+  - name: Add the user 'ubuntu' to 'docker group'
+    become: true
+    user:
+      name: ubuntu
+      group: docker
+      append: yes
+
+  - name: kill all containers
+    shell: docker kill $(docker ps  -q)
+    ignore_errors: True    
+
+  - name: clean stopped containers
+    shell: docker container prune -f
+    ignore_errors: True         
+
+  - name: start sample container
+    shell: docker run -d mkarakas/simple-rest
+    ignore_errors: True   
