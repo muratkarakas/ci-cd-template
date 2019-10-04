@@ -16,11 +16,7 @@ pipeline {
         }
     }
 
-    stage('Manage With Ansible'){
-       steps {
-         ansiblePlaybook(installation:'ansible',disableHostKeyChecking: true, credentialsId: 'server_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
-       }
-    }
+
 
     stage('Build') {
         agent {
@@ -55,7 +51,11 @@ pipeline {
         }
     }
 
-
+    stage('Deploy With Ansible'){
+       steps {
+         ansiblePlaybook(installation:'ansible',disableHostKeyChecking: true, credentialsId: 'server_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
+       }
+    }
 
     /*
     stage('Docker Image Build') {
