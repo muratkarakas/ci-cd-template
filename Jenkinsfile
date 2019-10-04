@@ -5,22 +5,22 @@ pipeline {
   stages {
 
     stage('Ansible Init') {
-            steps {
-                script {
+        steps {
+            script {
                 
                def tfHome = tool name: 'ansible'
                env.PATH = "${tfHome}:${env.PATH}"
                sh 'ansible --version'
                     
             }
-            }
+        }
     }
 
     stage('Manage With Ansible'){
        steps {
 
 
-         ansiblePlaybook(installation:'ansible', credentialsId: 'private_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
+         ansiblePlaybook(installation:'ansible', credentialsId: 'server_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
        }
     }
 
