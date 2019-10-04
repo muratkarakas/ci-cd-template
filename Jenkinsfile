@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                 
-               def tfHome = tool name: 'Ansibel_latest'
+               def tfHome = tool name: 'ansible'
                env.PATH = "${tfHome}:${env.PATH}"
                sh 'ansible --version'
                     
@@ -20,7 +20,7 @@ pipeline {
        steps {
 
 
-         ansiblePlaybook(installation:'Ansibel_latest', credentialsId: 'private_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
+         ansiblePlaybook(installation:'ansible', credentialsId: 'private_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
        }
     }
 
