@@ -4,6 +4,17 @@ pipeline {
 
   stages {
 
+    stage('Ansible Init') {
+            steps {
+                script {
+                
+               def tfHome = tool name: 'Ansibel_latest'
+               env.PATH = "${tfHome}:${env.PATH}"
+               sh 'ansible --version'
+                    
+            }
+            }
+    }
 
     stage('Manage With Ansible'){
        steps {
