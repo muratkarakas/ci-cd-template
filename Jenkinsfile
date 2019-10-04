@@ -46,7 +46,7 @@ pipeline {
             inventoryPath('playbooks/inventory.yml')
             credentialsId('ssh-key')
           }
-       )
+       }
     }
 
     /*
