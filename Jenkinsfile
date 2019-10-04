@@ -18,7 +18,7 @@ pipeline {
     stage('SonarQube analysis') {
         steps {
             withSonarQubeEnv(installationName: 'EterationSonar') {
-              sh './mvnw test org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.1.1688:sonar'
+              sh './mvnw org.jacoco:jacoco-maven-plugin:0.8.4:prepare-agent test  org.jacoco:jacoco-maven-plugin:0.8.4:report  org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.1.1688:sonar'
             }
         }
       }
