@@ -5,7 +5,13 @@ pipeline {
   stages {
 
 
+    stage('Manage With Ansible'){
+       steps {
 
+
+         ansiblePlaybook(installation:'Ansibel_latest', credentialsId: 'private_key', inventory: 'playbooks/inventory.yml', playbook:'playbooks/docker_install.yml',colorized: true)
+       }
+    }
 
     stage('Build') {
         agent {
@@ -40,14 +46,7 @@ pipeline {
         }
     }
 
-    stage('Manage With Ansible'){
-       steps {
-          ansiblePlaybook('playbooks/docker_install.yml') {
-            inventoryPath('playbooks/inventory.yml')
-            credentialsId('ssh-key')
-          }
-       }
-    }
+
 
     /*
     stage('Docker Image Build') {
