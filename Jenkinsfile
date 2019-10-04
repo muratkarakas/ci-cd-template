@@ -41,10 +41,12 @@ pipeline {
     }
 
     stage('Manage With Ansible'){
-      ansiblePlaybook('playbooks/docker_install.yml') {
-        inventoryPath('playbooks/inventory.yml')
-        credentialsId('ssh-key')
-      }
+       steps {
+          ansiblePlaybook('playbooks/docker_install.yml') {
+            inventoryPath('playbooks/inventory.yml')
+            credentialsId('ssh-key')
+          }
+       )
     }
 
     /*
