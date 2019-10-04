@@ -15,15 +15,21 @@ pipeline {
             }
         }
     }
-    stage('SonarQube analysis') {
+    /*stage('SonarQube analysis') {
         steps {
             withSonarQubeEnv(installationName: 'EterationSonar') {
               sh './mvnw org.jacoco:jacoco-maven-plugin:0.8.4:prepare-agent test  org.jacoco:jacoco-maven-plugin:0.8.4:report  org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.1.1688:sonar'
             }
         }
-      }
+    }*/
 
-
+    stage('SonarQube analysis with  gradle') {
+        steps {
+            withSonarQubeEnv(installationName: 'EterationSonar') {
+              sh './gradlew sonarqube'
+            }
+        }
+    }
     stage('Build') {
         agent {
                 docker { image 'openjdk:8-jdk-alpine' }
