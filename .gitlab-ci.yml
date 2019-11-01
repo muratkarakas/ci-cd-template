@@ -1,0 +1,45 @@
+image: docker:latest
+
+services:
+  - docker:18.09.7-dind
+
+stages:
+  - Build App
+  - Build Image
+  - Deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://localhost:2375
+
+
+build-app:
+  image: maven:3-jdk-8
+  stage: Build App
+  script: "mvn package -B"
+  artifacts:
+    paths:
+      - target/*.jar
+
+build-image:
+  stage: Build Image
+  script:
+    - ls  -lrt
+    - docker build -t $HUB_USER/sample-boot .
+    - docker image ls
+    - docker login -u $HUB_USER -p   $HUB_PASSWORD
+    - docker push  $HUB_USER/sample-boot
+
+deploy-image:
+  image: smesch/kubectl
+  stage: Deploy
+  script:
+    - kubectl config set-cluster k8s --server="${K8S_SERVER}"
+    - kubectl config set clusters.k8s.certificate-authority-data ${K8S_CERTIFICATE_AUTHORITY_DATA}
+    - kubectl config set-credentials ${K8S_USER} --token="${K8S_USER_TOKEN}"
+    - kubectl config set-context default --cluster=k8s --user=${K8S_USER}
+    - kubectl config use-context default
+    - kubectl get ns
+
+
