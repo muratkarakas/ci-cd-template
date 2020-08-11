@@ -1,0 +1,55 @@
+pipeline {
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
+  }
+  triggers {
+        pollSCM('*/30 * * * *')
+  }
+  agent any
+  
+
+  stages {
+
+
+
+
+   
+    stage('Compile') {
+        steps {
+           sh './mvnw clean compile'
+        }
+    }
+
+    stage('Test  ') {
+        steps {
+           sh './mvnw test'
+        }
+        post {
+          always {
+            junit 'target/surefire-reports/**/*.xml' 
+          }
+        }
+    }
+
+
+    stage('Static Analysis') {
+        steps {
+           sh './mvnw   sonar:sonar  -Dsonar.host.url=http://sonarqube:9000'
+        }
+    }
+
+    
+  }   
+
+
+
+  
+}
+
+
+
+
+
+
+
+  
