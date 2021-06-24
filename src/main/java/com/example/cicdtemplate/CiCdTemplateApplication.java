@@ -12,6 +12,7 @@ public class CiCdTemplateApplication {
 
   /**
    * spring-boot main class.
+   * @param  standard main args
    */
   public static void main(String[] args) {
     SpringApplication.run(CiCdTemplateApplication.class, args);
