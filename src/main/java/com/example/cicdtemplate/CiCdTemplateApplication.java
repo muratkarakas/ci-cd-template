@@ -20,6 +20,8 @@ public class CiCdTemplateApplication {
   // TODO fix this later!
   /**
    *sample rest API for demonstration.
+   *
+   *@return pong response
   */
   @GetMapping(value = "/ping")
   public String ping() {

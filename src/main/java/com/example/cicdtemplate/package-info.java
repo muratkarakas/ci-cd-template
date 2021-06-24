@@ -1,7 +1,7 @@
 /**
-* Root package for project
+* Root package for project.
 * <p>
-* Contains core API codes
+* Contains core API codes.
 * </p>
 *
 * @since 1.0
