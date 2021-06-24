@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CiCdTemplateApplication {
 
   /**
-   * spring-boot   main class
+   * spring-boot main class.
    */
   public static void main(String[] args) {
     SpringApplication.run(CiCdTemplateApplication.class, args);
   }
 
-  // TODO do this later!
+  // TODO fix this later!
   /**
-   * sample rest api for demonstration
-   */
+   *sample rest API for demonstration.
+  */
   @GetMapping(value = "/ping")
   public String ping() {
     return "pong";
