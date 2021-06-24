@@ -22,4 +22,6 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Build with Maven
-      run: ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent test  org.jacoco:jacoco-maven-plugin:report  checkstyle:checkstyle org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login={{secrets.SONAR_TOKEN}}  -Dsonar.organization=muratkarakas -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+      run: ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent test  org.jacoco:jacoco-maven-plugin:report  checkstyle:checkstyle org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=$SONAR_TOKEN  -Dsonar.organization=muratkarakas -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
