@@ -1,5 +1,7 @@
 docker volume create jenkins-data
 docker run --name bjenkins -u root --rm  -p 8080:8080  -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
 
+./mvnw clean test allure:report 
 
+allure serve target/surefire-reports
 ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent test  org.jacoco:jacoco-maven-plugin:report  checkstyle:checkstyle  org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login= -Dsonar.organization=muratkarakas -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
