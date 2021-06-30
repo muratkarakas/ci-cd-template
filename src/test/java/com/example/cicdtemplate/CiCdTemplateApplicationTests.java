@@ -12,13 +12,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CiCdTemplateApplicationTests {
+class CiCdTemplateApplicationTests {
 
     //TODO test this
 	@Autowired
     private MockMvc mockMvc;
 	@Test
-	public void ping() throws Exception {
+	void ping() throws Exception {
 		mockMvc.perform(get("/ping")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("pong"));
 	}
 
