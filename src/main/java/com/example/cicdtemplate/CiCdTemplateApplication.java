@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 public class CiCdTemplateApplication {
 
+  //TODO more tests needed
   /**
    * spring-boot main class.
    * @param args - Standard main args
