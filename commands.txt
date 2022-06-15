@@ -5,3 +5,19 @@ docker run --name bjenkins -u root --rm  -p 8080:8080  -v jenkins-data:/var/jenk
 
 allure serve target/surefire-reports
 ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent test  org.jacoco:jacoco-maven-plugin:report  checkstyle:checkstyle  org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login= -Dsonar.organization=muratkarakas -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+
+
+
+
+
+
+
+./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent test  org.jacoco:jacoco-maven-plugin:report  checkstyle:checkstyle  sonar:sonar  -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login= -Dsonar.organization=muratkarakas -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+
+
+./mvnw clean verify  sonar:sonar    -Dsonar.login=
+
+
+./mvnw jib:build
+
+./mvnw jib:dockerBuild

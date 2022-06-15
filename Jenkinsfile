@@ -54,7 +54,7 @@ pipeline {
     }
     stage('Docker Image Build  & Push') {
         steps {
-            sh './mvnw -Ddocker.skip=false package docker:build'
+            sh './mvnw -Ddocker.skip=false package jib:dockerBuild'
             withCredentials([string(credentialsId: 'dockerhub_password', variable: 'password')]) {
                  sh 'docker login -u mkarakas -p   ${password}'
                  sh 'docker push mkarakas/ci-cd-template'
