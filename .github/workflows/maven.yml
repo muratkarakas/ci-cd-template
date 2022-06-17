@@ -29,4 +29,4 @@ jobs:
     - name: Publish Test Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
-          report_paths: '**/target/surefire-reports/TEST-*.xml'
+          files: '**/target/surefire-reports/TEST-*.xml'
