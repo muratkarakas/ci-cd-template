@@ -23,6 +23,9 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: ./mvnw clean verify  sonar:sonar    -Dsonar.login=$SONAR_TOKEN
+      uses: mikepenz/action-junit-report@v3
+      with:
+          report_paths: '**/target/surefire-reports/TEST-*.xml'
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
