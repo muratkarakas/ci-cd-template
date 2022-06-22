@@ -27,6 +27,12 @@ public class CiCdTemplateApplication {
   */
   @GetMapping(value = "/ping")
   public String ping() {
+
+    String s = null;
+    if(false){
+      s.toString();
+    }
+   
     return "pong";
   }
 
